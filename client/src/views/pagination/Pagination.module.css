@@ -1,0 +1,20 @@
+.container{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.B1{
+  width: 30px;
+  height: 25px;
+  display: flex;
+}
+
+.B2{
+  width: 30px;
+  height:25px;
+  display: flex;
+}
+
+
+/*  < 1 2 3 4 5 >  */

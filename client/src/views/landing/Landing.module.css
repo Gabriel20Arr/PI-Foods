@@ -1,0 +1,22 @@
+.conteiner{
+    /* background: url("../../utils/food_img.jpg" ) center center;
+    background-size: cover;
+    height: 100vh; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cont{
+    background-color: blue;
+    height: 10em;
+    width: 10em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 25em;
+    border-radius: 40px;
+}
