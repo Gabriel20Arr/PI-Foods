@@ -29,7 +29,6 @@ const HrecipeDetail = async (req, res) => {
     const source = isNaN(id) ? "bdd" : "api";
 
     const response = await recipeDetail(id, source);
-    // console.log(response);
 
     res.status(200).json(response);
   } catch (error) {

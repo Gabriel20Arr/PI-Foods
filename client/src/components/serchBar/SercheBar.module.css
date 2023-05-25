@@ -1,11 +1,8 @@
 
-/* .container{
-    position: relative;
-} */
-
 .Boton{
-    display: flex;
     background: #fff;
+    display: flex;
+
     padding: 7px 14px 7px 14px;
     border-radius: 30px;
     border:  2px solid #cad3dc;
@@ -24,11 +21,11 @@ input{
 
 section{
     display: flex;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 
-form > div{
+.form > .autoComplete{
     display: flex;
     background: #fff;
     padding: 5px 20px 5px 20px;
@@ -36,7 +33,7 @@ form > div{
     border:  2px solid #cad3dc;
 }
 
-form input{
+.form input{
     border: none;
     background: transparent;
     padding-left: 20px;
@@ -47,7 +44,7 @@ form input{
     transition: all 1s;
 }
 
-form input:focus{
+.form input:focus{
     outline: none;
     width: 150px;
 }

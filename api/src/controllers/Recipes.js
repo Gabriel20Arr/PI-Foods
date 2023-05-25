@@ -2,10 +2,9 @@ const axios = require("axios");
 require("dotenv").config();
 const { Op } = require("sequelize");
 
-const { API_KEY, URL, API_KEY_2, API_KEY_3, API_KEY_4 } = process.env;
+const { URL, API_KEY_4 } = process.env;
 const { Recipe, Diet } = require("../db");
 
-// ? bu
 // "https://api.spoonacular.com/recipes/complexSearch?number=5&apiKey= 8af1f809d79547a3806d69b529361658&addRecipeInformation=true"
 
 const allRecipes = async () => {
@@ -14,7 +13,8 @@ const allRecipes = async () => {
       `https://api.spoonacular.com/recipes/complexSearch?number=100&apiKey=${API_KEY_4}&addRecipeInformation=true`
     )
   ).data;
-  const { diets, id, title, image, summary, healthScore, steps } = infoApi;
+
+  // const { diets, id, title, image, summary, healthScore, steps } = infoApi;
   const infoDB = await Recipe.findAll({ include: Diet });
 
   const resDb1 = infoDB.map((d) => {
@@ -33,10 +33,12 @@ const allRecipes = async () => {
 const recipeDetail = async (id, source) => {
   if (source === "bdd") {
     const resBd = await Recipe.findByPk(id, { include: Diet });
+
     const { title, image, summary, healthScore, steps, Diets } = resBd;
     const aux = Diets.map((diet) => diet.name);
 
     let step = [];
+    
     if (steps && steps.length > 0) {
       step = steps.map(({ step, ingredients, equipments }) => ({
         step,
@@ -54,10 +56,7 @@ const recipeDetail = async (id, source) => {
       resApi.data;
 
     let step2 = [];
-    if (
-      analyzedInstructions[0].steps &&
-      analyzedInstructions[0].steps.length > 0
-    ) {
+    if ( analyzedInstructions[0].steps && analyzedInstructions[0].steps.length > 0) {
       step2 = analyzedInstructions[0].steps.map(
         ({ step, ingredients, equipment }) => ({
           step,
@@ -79,13 +78,8 @@ const recipeDetail = async (id, source) => {
   }
 };
 
-//* potato starch - butter
 
-//? for name
 // `https://api.spoonacular.com/recipes/complexSearch?query=berry&apiKey=1731c0e5a2d04fa7a401c8fb75950de7`
-
-//? autocomplete name
-// "https://api.spoonacular.com/recipes/autocomplete?number=10&query=chick&apiKey=8af1f809d79547a3806d69b529361658&number=10"
 
 const recipeName = async (title) => {
   const dbName = await Recipe.findAll({

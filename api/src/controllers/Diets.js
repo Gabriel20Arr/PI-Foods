@@ -1,7 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const { API_KEY, API_KEY_2, API_KEY_3, API_KEY_4 } = process.env;
+const { API_KEY_4 } = process.env;
 const { Diet } = require("../db");
 
 const getDiet = async (req, res) => {
@@ -12,7 +12,6 @@ const getDiet = async (req, res) => {
     const dietArray = dietsApi.data.results?.map((recipe) => recipe.diets);
     const dietsEach = dietArray.flat();
     const diets = [...new Set(dietsEach)];
-    console.log(diets);
 
     diets.forEach((diet) => {
       Diet.findOrCreate({
@@ -29,15 +28,3 @@ const getDiet = async (req, res) => {
 };
 
 module.exports = getDiet;
-
-/*
-
-const getAllDiets = async (req, res) => { 
-  const resDiet = await Diet.findAll({
-    attributes: ["name", "id"],
-  });
-
-return resDiet;
-}
-
-*/

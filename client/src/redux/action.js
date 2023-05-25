@@ -16,7 +16,6 @@ export function getRecipes() {
   return async function (dispatch) {
     try {
       const response = (await axios.get("http://localhost:3001/recipes")).data;
-      // console.log(response);
 
       dispatch({
         type: GET_RECIPES,
@@ -28,13 +27,14 @@ export function getRecipes() {
   };
 }
 
+
 export function getRecipesName(name) {
   return async function (dispatch) {
     try {
       const res = (
         await axios.get(`http://localhost:3001/recipes?title=${name}`)
       ).data;
-      // console.log(res);
+      
       return dispatch({
         type: RECIPE_NAME,
         payload: res,

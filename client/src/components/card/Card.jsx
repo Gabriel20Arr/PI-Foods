@@ -14,16 +14,16 @@ const Card = ({ allRecipes }) => {
         </div>
       </Link>
       <div>
-        <h3>{healthScore}</h3>
-      </div>
-      <div>
         <img src={image} alt={title} className={style.img} />
       </div>
-      <div>
-        <h3 className={style.diet} >
-          <ol>{diets}</ol>
-        </h3>
+      <div className={style.score} >
+        <h3> healthScore: {healthScore}</h3>
       </div>
+        <h4>
+          <ol className={style.diet}>
+          {diets.join(' - ')}
+          </ol>
+        </h4>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import Card from "../card/Card";
 import style from "./Cards.module.css";
 
 const Cards = ({ allRecipes }) => {
-  // console.log(allRecipes);
+  
   return (
     <div className={style.contt}>
       {allRecipes &&

@@ -2,33 +2,47 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
 
-    margin: 15px;
 }
 
+
 .conteiner_filter{
-    margin: 10px;
+    margin: 5px;
     padding: 0px 10px;
-    
+
     display: flex;
     justify-content: space-around;
     align-items: center;
 
-    background-color: rgb(217, 245, 245);
-    
+    background-color: #ffa600;
+
     height: 2.5em;
     width: fit-content;
+
+    font-weight: bold;
+    font-size: small;
+    border-radius: 4px;
 }
 
+
+
 .Brest{
-    display: flex;
     background: #fff;
+    display: flex;
+
+    margin: 10px;
     padding: 7px 14px 7px 14px;
+    
     border-radius: 30px;
     border:  2px solid #cad3dc;
+    
     font-weight: bold;
     font-size: medium;
-    margin-right: 10px;
+}
+
+.Brest:hover{
+    background-color: #cad3dc;
 }
 
 .count_B_rest{
@@ -41,12 +55,16 @@
 .search{
     display: flex;
     justify-content: center;
-    
+
     position: absolute;
-    top: 16px;
+    top: 13px;
     left: 70%;
     
     background-color:  #ffa600;
-    width: 470px;
+    width: 30%;
     height: 3em;
+    border: 1px solid;
+    border-left: none;
+    border-right: none;
 }
+

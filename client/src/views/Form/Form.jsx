@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from 'react-router-dom'
 import { postRecipesForm, getDiets } from "../../redux/action";
 import Step from "./Step/Step";
 import { validate } from "../../hooks/validation/validate.js";
@@ -9,11 +9,13 @@ import style from "./Form.module.css";
 const Form = () => {
   const dispatch = useDispatch();
   const getDiet = useSelector((state) => state.getDiet);
+  const copy = useSelector((state) => state.copyAllRecipes);
+
   const [input, setInput] = useState({
     title: "",
     image: "",
     summary: "",
-    health_score: 0,
+    health_score: '',
     steps: [],
     diets: [],
     numSteps: 1,
@@ -23,7 +25,7 @@ const Form = () => {
     title: "requerido",
     summary: "requerido",
     image: "requerido",
-    health_Score: "requerido",
+    health_score: "requerido",
     steps: "",
   });
 
@@ -35,7 +37,7 @@ const Form = () => {
   function handlerChange(e) {
     const { value, name } = e.target;
     setInput({ ...input, [name]: value });
-    validate({ ...error, [name]: value });
+    setError(validate({ ...input, [name]: value }, copy));
   }
 
   // recibos las diets
@@ -59,13 +61,12 @@ const Form = () => {
 
   function handlerSubmit(e) {
     e.preventDefault();
-    console.log(input);
     dispatch(postRecipesForm(input));
     setInput({
       title: "",
       image: "",
       summary: "",
-      health_score: 0,
+      health_score: '',
       steps: [],
       numSteps: 1,
       diets: [],
@@ -77,7 +78,9 @@ const Form = () => {
     for (let i = 0; i < stepsNum; i++) {
       const input = (
         <div key={i}>
-          <label htmlFor="">{`step ${i + 1}`}: </label>
+          <div className={style.stepssCount}>
+            <label htmlFor="" className={style.stepss}>{`Step ${i + 1}`}: </label>
+          </div>
           <Step cantidad={cantidad} steps={addSteps} id={i + 1} />
         </div>
       );
@@ -110,11 +113,12 @@ const Form = () => {
   };
 
   return (
-    <div className={style.container}>
+    <div className={style.container0}>
+      <h1 className={style.title}>Formulario de receta</h1>
+      <form className={style.container} onSubmit={(e) => handlerSubmit(e)}>
       <div className={style.container2}>
-        <h1 className={style.title}>Formulario de receta</h1>
+        <div className={style.container2_0}>
 
-        <form onSubmit={(e) => handlerSubmit(e)}>
           <label className={style.label}>Title</label>
           <input
             type="text"
@@ -123,8 +127,6 @@ const Form = () => {
             onChange={handlerChange}
           />
           <p>{error.title ? error.title : ""}</p>
-          <br />
-          <br />
 
           <label className={style.label}>Summary</label>
           <textarea
@@ -133,19 +135,15 @@ const Form = () => {
             onChange={handlerChange}
           ></textarea>
           <p>{error.summary ? error.summary : ""}</p>
-          <br />
-          <br />
 
           <label className={style.label}>Health Score</label>
           <input
-            type="number"
+            type="text"
             value={input.health_score}
             name="health_score"
             onChange={handlerChange}
           />
-          <p>{error.health_Score ? error.health_Score : ""}</p>
-          <br />
-          <br />
+          <p>{error.health_score ? error.health_score : ""}</p>
 
           <label className={style.label}>Image</label>
           <input
@@ -156,54 +154,59 @@ const Form = () => {
             placeholder="Entry URL from image"
           ></input>
           <p>{error.image ? error.image : ""}</p>
-          <br />
-          <br />
-          {/* <input
-            type="file"
-            value={input.image}
-            name="image"
-            onChange={handlerChange}
-            className={style.img}
-            required
-          /> */}
-          <br />
-          <br />
-          <label className={style.label}>steps</label>
-          {cantidad(handlerNumSteps)}
-          <br />
-          {handlerSteps(input.numSteps)}
+        </div>
+      </div>
 
-          <br />
-          <br />
+      <div className={style.container3}>
+          <label className={style.step}>steps</label>
+          <div>
+            {cantidad(handlerNumSteps)}
+            <span >
+              {handlerSteps(input.numSteps)}
+            </span>
+          </div>
 
-          <div className={style.dropdown}>
-            <button type="button" className={style.Bdiets}>
-              Tipos de dieta
-            </button>
-            <div className={style.dropdown_content}>
-              {getDiet &&
-                getDiet.map((diet, index) => (
-                  <label className={style.checkbox} key={index}>
-                    <input
-                      type="checkbox"
-                      value={index + 1}
-                      checked={input.diets.includes(index + 1)}
-                      onChange={handlerDiets}
-                    />
-                    {diet}
-                  </label>
-                ))}
+          <div>
+            <div className={style.dropdown}>
+              <button type="button" className={style.Bdiets}>
+                Tipos de dieta
+              </button>
+              <div className={style.dropdown_content}>
+                {getDiet &&
+                  getDiet.map((diet, index) => (
+                    <label className={style.checkbox} key={index}>
+                      <input
+                        type="checkbox"
+                        value={index + 1}
+                        checked={input.diets.includes(index + 1)}
+                        onChange={handlerDiets}
+                      />
+                      <span className={style.dietC}>
+                        {diet}
+                      </span>
+                    </label>
+                  ))}
+              </div>
             </div>
           </div>
-          <br />
-          <br />
-          <div>
-            <button className={style.create} type="submit">
-              Create
-            </button>
-          </div>
-        </form>
+
       </div>
+
+        <div className={style.createCont}>
+          <button className={style.create} type="submit">
+            Create
+          </button>
+        </div>  
+
+      </form>
+
+        <div className={style.back}>
+        <Link to={"/home"} style={{color: 'inherit',
+    textDecoration: 'none'}} >
+          <button className={style.backB} >Back</button>
+        </Link>
+        </div>
+
     </div>
   );
 };

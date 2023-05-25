@@ -29,7 +29,7 @@ const SerchBar = ({ serchN }) => {
           >
             Search
           </button>
-          <form>
+          <form className={styled.form}>
             <div className={styled.autoComplete}>
               <input
                 className={styled.Boton2}

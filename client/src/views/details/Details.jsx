@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getRecipesDetail, cleanDetail } from "../../redux/action";
@@ -20,31 +20,51 @@ const Details = () => {
   const { title, image, summary, healthScore, steps, diets } = DetailRecipes;
   return (
     <div className={style.cont}>
+      <div className={style.bCount}>
+        <Link to={'/home'} style={{textDecoration: 'none'}}>
+          <button className={style.b}>
+            Back
+          </button>
+        </Link>
+      </div>
       <div className={style.cont2}>
-        <h2>{title}</h2>
-        <img src={image} alt="" />
-        <h3>
+
+      <div className={style.titleC}>
+        <h2 className={style.title}>{title}</h2>
+      </div>
+        
+      <div className={style.imageC}>
+        <img src={image} alt="" className={style.image} />
+      </div>
+        
+        <h3 className={style.summary}>
+        <h2 className={style.summary1}>Summary</h2>
           {" "}
           <span dangerouslySetInnerHTML={{ __html: summary }} />{" "}
         </h3>
-        <h3>{healthScore}</h3>
-        <div>
+
+        <h3 className={style.score}> HealthScore: {healthScore}</h3>
+
+        <div className={style.steps}>
+        <h2 className={style.stepsTitle}>Steps</h2>
           {steps ? (
             <div>
               {steps.map((step, index) => (
                 <div key={index}>
-                  <h2>Step {index + 1}</h2>
+                  <h3 className={style.titleSteps}>Step {index + 1}</h3>
                   <p>{step.step}</p>
-                  <h2>Ingredient</h2>
-                  <ul>
+
+                  <h3 className={style.titleSteps}>Ingredient</h3>
+                  <ul className={style.conutSteps}>
                     {step.ingredients.map((ingredient, ingredientIndex) => (
                       <li key={ingredientIndex}>
                         {ingredient.name ? ingredient.name : ingredient}
                       </li>
                     ))}
                   </ul>
-                  <h2>equipment</h2>
-                  <ul>
+                  
+                  <h3 className={style.titleSteps}>Equipment</h3>
+                  <ul className={style.conutSteps}>
                     {step.equipments.map((equipment, equipmentIndex) => (
                       <li key={equipmentIndex}>
                         {equipment.name ? equipment.name : equipment}
@@ -56,7 +76,14 @@ const Details = () => {
             </div>
           ) : null}
         </div>
-        <h3><ol>{diets}</ol></h3>
+
+        <div className={style.diets}>
+          <h3 className={style.dietsTypes} >Types Of Diets</h3>
+            <h4 >
+              <ol>{diets && diets.join(' - ')}</ol>
+            </h4>
+        </div>
+
       </div>
     </div>
   );

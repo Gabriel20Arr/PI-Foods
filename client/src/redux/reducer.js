@@ -50,7 +50,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case POST_RECIPE:
-      //? retorna una copia del estado
+      // retorna una copia del estado
       return {
         ...state,
       };
@@ -64,10 +64,12 @@ function rootReducer(state = initialState, action) {
 
     case FILTER_DIETS:
       const Alldiets = state.copyName;
+      
       const filtersDiets =
         action.payload === "All"
           ? Alldiets
           : Alldiets.filter((el) => el.diets.includes(action.payload));
+          
       return {
         ...state,
         allRecipes: filtersDiets,
@@ -102,9 +104,9 @@ function rootReducer(state = initialState, action) {
       const sortedRecipes = [...state.allRecipes];
 
       if (action.payload === "healthier2") {
-        sortedRecipes.sort((a, b) => a.healthScore - b.healthScore);
-      } else {
         sortedRecipes.sort((a, b) => b.healthScore - a.healthScore);
+      } else {
+        sortedRecipes.sort((a, b) => a.healthScore - b.healthScore);
       }
 
       return {

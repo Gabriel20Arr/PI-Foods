@@ -9,11 +9,11 @@ import Form from "./views/Form/Form";
 
 function App() {
   const location = useLocation();
-  const LandLocation = location.pathname === "/";
+  const LandLocation = location.pathname === "/home";
 
   return (
     <div className="App">
-      {!LandLocation && <Nav />}
+      {LandLocation && <Nav />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />

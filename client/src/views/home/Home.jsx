@@ -38,19 +38,24 @@ const Home = () => {
     setCurrentItems(currentItems);
   }, [allRecipes, currentPage, itemsPerPage]);
 
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
+
   const handlerReset = () => {
     dispatch(getRecipes());
   };
 
   return (
     <div className={style.todo}>
-      <div className={style.conteiner_filter}>
-        <FiltroDiets />
+
+       <div className={style.conteiner_filter}>
+        <FiltroDiets  />
       </div>
 
       <div className={style.count_B_rest} >
         <button className={style.Brest} onClick={handlerReset}>
-          Reset
+          Refresh Page
         </button>
       </div>
 
@@ -66,6 +71,7 @@ const Home = () => {
         setItemsPerPage={setItemsPerPage}
         allRecipes={allRecipes.length}
         onPageChange={handlePageChange}
+        paginado={paginado}
       />
     </div>
   );
